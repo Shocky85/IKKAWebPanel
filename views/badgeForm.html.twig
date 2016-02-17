@@ -1,0 +1,75 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}Création d'un nouveau badge{% endblock %}
+
+{% block content %}
+
+    {% if badgeForm %}
+        {{ form_start(badgeForm) }}
+
+        <div class="row">
+            <div class="col-md-6 well-media">
+                <div class="form-group">
+                    <label for="badge_amount">Titre du badge:</label>
+                    {{ form_errors(badgeForm.title) }}
+                    {{ form_widget(badgeForm.title, { 'attr':  {
+                    'class': 'form-control',
+                    'placeholder': 'Saisir un titre ...',
+                    }}) }}
+                </div>
+
+                <div class="form-group">
+                    <label for="badge_description"> Donner une description pour ce badge :</label>
+                    {{ form_errors(badgeForm.description) }}
+                    {{ form_widget(badgeForm.description, { 'attr':  {
+                    'class': 'form-control',
+                    'placeholder': 'Saisir une description ...'
+                    }}) }}
+                </div>
+
+                <div class="form-group">
+                    <label for="badge_account_creditor">Sélectionner la catégorie :</label>
+                    {{ form_errors(badgeForm.category) }}
+                    {{ form_widget(badgeForm.category, { 'attr':  {
+                    'class': 'form-control',
+                    }}) }}
+                </div>
+
+                <div class="form-group">
+                    <label for="badge_description"> Donner la ligne "parameters" InGame:</label>
+                    {{ form_errors(badgeForm.parameters) }}
+                    {{ form_widget(badgeForm.parameters, { 'attr':  {
+                    'class': 'form-control',
+                    'placeholder': 'Saisir les paramètres de jeu ...'
+                    }}) }}
+                </div>
+
+                <div class="form-group">
+                    <label for="badge_description"> Donner l'URL de l'image :</label>
+                    {{ form_errors(badgeForm.image_url) }}
+                    {{ form_widget(badgeForm.image_url, { 'attr':  {
+                    'class': 'form-control',
+                    'placeholder': 'Saisir une URL ...'
+                    }}) }}
+                </div>
+
+
+
+                <div class="pull-right">
+                    <input type="submit" class="btn btn-primary " value="Valider" />
+                </div>
+            </div>
+        </div>
+
+        {{ form_end(badgeForm) }}
+
+        {% for flashMessage in app.session.flashbag.get('success') %}
+            <div class="alert alert-success">
+                {{ flashMessage }}
+            </div>
+        {% endfor %}
+
+
+
+    {% endif %}
+{% endblock %}

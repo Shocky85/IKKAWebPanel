@@ -1,0 +1,55 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}Création d'une nouvelle transaction{% endblock %}
+
+{% block content %}
+
+    {% if transactionForm %}
+        {{ form_start(transactionForm) }}
+
+        <div class="row">
+            <div class="col-md-6 well-media">
+                <div class="form-group">
+                    <label for="transaction_amount">Montant de la transaction:</label>
+                    {{ form_errors(transactionForm.amount) }}
+                    {{ form_widget(transactionForm.amount, { 'attr':  {
+                    'class': 'form-control',
+                    'placeholder': 'Saisir le montant de la transaction ...',
+                    }}) }}
+                </div>
+
+                <div class="form-group">
+                    <label for="transaction_account_creditor">Sélectionner le bénéficiaire :</label>
+                    {{ form_errors(transactionForm.account_creditor) }}
+                    {{ form_widget(transactionForm.account_creditor, { 'attr':  {
+                    'class': 'form-control',
+                    }}) }}
+                </div>
+
+                <div class="form-group">
+                    <label for="transaction_description"> Donner une description pour cette transaction :</label>
+                    {{ form_errors(transactionForm.description) }}
+                    {{ form_widget(transactionForm.description, { 'attr':  {
+                    'class': 'form-control',
+                    'placeholder': 'Saisir une description ...'
+                    }}) }}
+                </div>
+
+                <div class="pull-right">
+                    <input type="submit" class="btn btn-primary " value="Valider" />
+                </div>
+            </div>
+        </div>
+
+        {{ form_end(transactionForm) }}
+
+        {% for flashMessage in app.session.flashbag.get('success') %}
+            <div class="alert alert-success">
+                {{ flashMessage }}
+            </div>
+        {% endfor %}
+
+
+
+    {% endif %}
+{% endblock %}

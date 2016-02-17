@@ -1,0 +1,47 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}Liste des badges{% endblock %}
+
+{% block content %}
+
+    <div class="container-fluid" >
+        <div class="row-mansory">
+
+
+            {% for badge in badges%}
+
+                <div class="col-md-4">
+                    <div class="well-media center"style="text-align: center">
+                        <br>
+                        <div >
+                            <img src="{{ app.request.basepath }}/assets/img/badge/goldcube.png" class="img_badge">
+                        </div>
+                        <div class="video-text">
+
+                            <h2>{{badge.title}}</h2>
+                            <p>{{badge.description}}</p>
+                        </div>
+
+                        <div class="{{badge.class}}-category-bg">
+                            <h3>{{badge.class}}</h3>
+                            <a class="link-media pull-right" href="#">
+                                <span class="entypo-{{badge.class}}"></span>
+                            </a>
+                            <div class="triangle-white"></div>
+                            <div class="triangle-{{badge.class}}-right"></div>
+                        </div>
+
+                    </div>
+                </div>
+
+            {% endfor %}
+
+
+        </div>
+        <div class="well well-sm pull-right"> 
+            <h4>{{badges|length}} badge(s) disponible(s) au total.</h4>
+        </div>
+    </div>
+
+{% endblock %}
+

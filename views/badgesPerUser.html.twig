@@ -1,0 +1,63 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}Liste des badges{% endblock %}
+
+{% block content %}
+
+    <div class="container-fluid" >
+
+        <div class="row-mansory">
+
+
+            {% for badge in badges%}
+
+                <div class="col-md-4"
+                     {%if badge.status=="lock"%}
+                         style="opacity: 0.4;"
+                     {%endif%}
+                     >
+                    <div class="well-media center"style="text-align: center">
+                        <br>
+                        <div >
+                            {%if badge.status=="lock"%}
+                                <img src="{{ app.request.basepath }}/assets/img/badge/cube.png" class="img_badge">
+                            {% else %}
+                                <img src="{{ app.request.basepath }}/assets/img/badge/goldcube.png" class="img_badge">
+                            {%endif%}
+
+                        </div>
+                        <div class="video-text">
+
+                            <h2>{{badge.title}}</h2>
+                            <hr>
+                            <p>{{badge.description}}</p>
+                            <hr>
+                            {%if badge.remaining>0%}
+                                <p>{{badge.remaining}} objectif(s) restant(s)</p>
+                            {%else%}
+                                <p>Tout les objectifs sont remplis</p>
+                            {%endif%}
+                        </div>
+
+                        <div class="{{badge.class}}-category-bg">
+                            <h3>{{badge.class}}</h3>
+                            <a class="link-media pull-right" href="#">
+                                <span class="entypo-{{badge.class}}"></span>
+                            </a>
+                            <div class="triangle-white"></div>
+                            <div class="triangle-{{badge.class}}-right"></div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+            {% endfor %}
+
+
+        </div>
+
+    </div>
+
+{% endblock %}
+

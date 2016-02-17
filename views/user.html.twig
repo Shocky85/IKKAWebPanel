@@ -1,0 +1,36 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}{{ user.pseudo}}{% endblock %}
+
+{% block content %}
+    <div class="row ">
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-2 well-ikka">
+            <img src="{{ user.avatar }}">
+        </div>
+        <div class="col-md-3 well">
+            <div class="row">
+                <div class="col-md-8">
+                    <h3>Pseudo : {{ user.pseudo }}</h3>
+                </div>
+                <div class="col-md-4">
+                    {%if user.idRole==1%}
+                        <img src="{{ app.request.basepath }}/assets/img/couronne.png" style="width: 50px">
+                    {%endif%}
+                </div>
+            </div>
+
+            <hr>
+            <p>UUID : {{ user.uuid }}</p>
+            <hr>
+            <p>Etat de connexion : <img style="width: 60px"src="{{ app.request.basepath }}/assets/img/led/{{user.flagConnection}}.png"></p>
+            <hr>
+            <a href="{{ path('myAccount', { 'id': user.idAccount }) }}"><button class="btn btn-warning">Accéder au compte bancaire</button></a>
+            <a href="{{ path('user', { 'uuid': user.uuid }) }}"><button class="btn btn-danger">Supprimer</button></a>
+        </div>
+    </div>
+{% endblock %}
+
+
+

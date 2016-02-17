@@ -1,0 +1,120 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}Consultation de votre compte {% endblock %}
+
+{% block content %}
+
+    <div class="container-fluid" >
+        <div class="row">
+
+            <div class="col-sm-12">
+
+                <div class="nest" id="FootableClose">
+
+                    <hr>
+                    <div class="body-nest" id="Footable">
+
+                        <div id="paper-top" style="font-size: 20px;">
+                            <div class="col-sm-3">
+                                <i class="icon-preview"></i> 
+                                {{app.request.session.get("pseudo")}}
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="devider-vertical visible-lg"></div>
+                                <div class="tittle-middle-header">
+
+                                    <div class="alert">
+                                        <span class="entypo-info"> Votre compte au {{ "now"|date("m/d/Y") }} à {{ "now"|date("H:i") }}.</span>
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="devider-vertical visible-lg"></div>
+                                <div class="visible-lg"
+                                     {% if account.accountBalance>0%}
+                                         style="color:green"
+                                     {%else%}
+                                         style="color:red"
+                                     {%endif%}
+                                     >
+                                    Solde actuel :&nbsp;&nbsp;&nbsp;&nbsp;{{ account.accountBalance }} 
+                                    <img src="{{ app.request.basepath }}/assets/img/coin.png" style="width: 30px">
+
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+            <div class="col-md-12">
+
+
+            </div>
+
+        </div>
+        <div class="row">
+            <table id="datatable" class="table table-striped table-bordered" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Mouvement</th>
+                        <th>Description</th>
+                        <th>Montant</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {%if transactions%}
+                        {% for transaction in transactions%}
+                            <tr
+                                {% if transaction.idCreditor==account.id %}
+                                    style="color:green"
+                                {%else%}
+                                    style="color:red"
+                                {%endif%}
+                                >
+                                <td>{% if transaction.idCreditor==account.id %}
+                                    Encaissement
+                                {%else%}
+                                    Décaissement
+                                    {%endif%}
+                                    </td>
+                                    <td>{{transaction.description}}</td>
+                                    <td>
+                                        {% if transaction.idCreditor==account.id %}
+                                            <span class="entypo-plus" ></span>
+                                        {%else%}
+                                            <span class="entypo-minus"></span>
+                                        {%endif%}
+                                        {{transaction.amount}} <img src="{{ app.request.basepath }}/assets/img/coin.png" style="width: 20px"></td>
+                                </tr>
+                                {% endfor %}
+                                    {%endif%}
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <a href="{{ path('newTransaction')}}"><button class="btn btn-info"><span class="entypo-plus-circled"></span> Effectuer une transaction</button></a>
+                        </div>
+
+                        <script type="text/javascript">
+                            $(document).ready(function () {
+                                $('#datatable').dataTable({
+                                    "language": {
+                                        "url": "{{ app.request.basepath }}/assets/js/datatable/fr.lang"
+                                    }
+                                });
+                            });
+                        </script>
+                        {% endblock %}
+

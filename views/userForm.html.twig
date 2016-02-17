@@ -1,0 +1,71 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}Création d'un nouvel utilisateur{% endblock %}
+
+{% block content %}
+
+    {% if userForm %}
+        {{ form_start(userForm) }}
+
+        <div class="row">
+            <div class="col-md-6 well-media">
+                <div class="form-group">
+                    <label for="user_pseudo">Pseudo de l'utilisateur:</label>
+                    {{ form_errors(userForm.pseudo) }}
+                    {{ form_widget(userForm.pseudo, { 'attr':  {
+                    'class': 'form-control',
+                    'placeholder': 'Saisir son pseudo ...',
+                    }}) }}
+                </div>
+                <div class="form-group">
+                    <label for="user_uuid">UUID de l'utilisateur :</label>
+                    {{ form_errors(userForm.uuid) }}
+                    {{ form_widget(userForm.uuid, { 'attr':  {
+                    'class': 'form-control',
+                    'placeholder': 'Saisir son UUID ...'
+                    }}) }}
+                </div>
+
+                <div class="form-group">
+                    <label for="user_id_role">Rôle de l'utilisateur:</label>
+                    {{ form_errors(userForm.idRole) }}
+                    {{ form_widget(userForm.idRole, { 'attr':  {
+                    'class': 'form-control',
+                    }}) }}
+                </div>
+
+                <div class="form-group">
+                    <label for="user_account_description">Desciption du compte :</label>
+                    {{ form_errors(userForm.account_description) }}
+                    {{ form_widget(userForm.account_description, { 'attr':  {
+                    'class': 'form-control',
+                    'placeholder': 'Saisir une description ...'
+                    }}) }}
+                </div>
+
+                <div class="form-group">
+                    <label for="user_account_balance">Sole de départ :</label>
+                    {{ form_errors(userForm.account_balance) }}
+                    {{ form_widget(userForm.account_balance, { 'attr':  {
+                    'class': 'form-control',
+                    'placeholder': 'Saisir un montant ...'
+                    }}) }}
+                </div>
+                <div class="pull-right">
+                    <input type="submit" class="btn btn-primary " value="Valider" />
+                </div>
+            </div>
+        </div>
+
+        {{ form_end(userForm) }}
+
+        {% for flashMessage in app.session.flashbag.get('success') %}
+            <div class="alert alert-success">
+                {{ flashMessage }}
+            </div>
+        {% endfor %}
+
+
+
+    {% endif %}
+{% endblock %}

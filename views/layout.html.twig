@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+    <head>
+        <meta charset="utf-8">
+        <title>IKKA - EPSI</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.js"></script>
+        <link rel="stylesheet" href="{{ app.request.basepath }}/assets/css/style.css">
+        <link rel="stylesheet" href="{{ app.request.basepath }}/assets/css/loader-style.css">
+        <link rel="stylesheet" href="{{ app.request.basepath }}/assets/css/bootstrap.css">
+        <link rel="stylesheet" href="{{ app.request.basepath }}/assets/css/media.css">
+        <link rel="stylesheet" href="{{ app.request.basepath }}/assets/js/datatable/css/jquery.dataTables.css">
+        <link rel="stylesheet" href="{{ app.request.basepath }}/assets/js/datatable/css/dataTables.bootstrap.css">
+    </head>
+
+    <body>
+        <div id="preloader">
+            <div id="status">&nbsp;</div>
+        </div>
+
+        <nav role="navigation" class="navbar navbar-static-top">
+            <div class="container-fluid">
+                <div id="bs-example-navbar-collapse-1" class="collapse navbar-collapse">
+
+                    <ul style="margin-right:0;" class="nav navbar-nav navbar-right">
+                        <li>
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                <img alt="" class="admin-pic img-circle" src="https://minotar.net/avatar/{{app.request.session.get("pseudo")}}/100.png">
+                                {{app.request.session.get("pseudo")}}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ path('logout') }}">
+                                <span class="entypo-logout"></span>&#160;&#160;Déconnexion</a>
+
+
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+
+        <div id="skin-select">
+            <div id="logo">
+                <a href="{{ path('home') }}">
+                    <img src="{{ app.request.basepath }}/assets/img/logo.png" style="width: 100%;margin-top: 30px">
+                </a>
+            </div>
+
+            <a id="toggle">
+                <span class="entypo-menu"></span>
+            </a>
+
+            <div class="skin-part">
+                <div id="tree-wrap">
+                    <div class="side-bar">
+                        <ul class="topnav menu-left-nest">
+                            <li>
+                                <a href="#" style="border-left:0px solid!important;" class="title-menu-left">
+
+                                    <span>IkkaNomy</span>
+
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="tooltip-tip ajax-load" href="{{ path('myAccount', { 'id': app.request.session.get("idAccount") }) }}" title="Consulter son compte">
+                                    <i class="icon-document"></i>
+                                    <span>Consulter son compte</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="tooltip-tip ajax-load" href="{{ path('newTransaction')}}" title="Effectuer un virement">
+                                    <i class="icon-media-shuffle"></i>
+                                    <span>Effectuer un virement</span>
+                                </a>
+                            </li>
+
+                        </ul>
+
+                        <ul class="topnav menu-left-nest">
+                            <li>
+                                <a href="#" style="border-left:0px solid!important;" class="title-menu-left">
+
+                                    <span>IkkaChievement</span>
+
+                                </a>
+                            </li>
+                            <li>
+                                <a class="tooltip-tip ajax-load" href="{{ path('badgesByUserAndState', { 'uuid':  app.request.session.get("uuid")}) }}" title="Mes badges">
+                                    <i class="icon-star"></i>
+                                    <span>Ma progression</span>
+                                </a>
+                            </li>
+                            <li style="text-align: left;">
+                                <a class="tooltip-tip tooltipster-disable" href="#" title="Consulter les badges">
+                                    <i class="icon-view-thumb"></i>
+                                    <span style="display: inline-block; float: none;">Voir le store</span>
+                                    <h4 style="display: inline-block; float: none;"><img src="{{ app.request.basepath }}/assets/img/plus.png"></h4></a>
+                                <ul style="display: none;">
+                                    <li style="text-align: left;">
+                                        <a class="tooltip-tip2 ajax-load tooltipster-disable" href="{{ path('badges') }}" title="Tous les badges"><i class="entypo-layout"></i><span style="display: inline-block; float: none;">Toutes les catégories</span></a>
+                                    </li>
+                                    <li style="text-align: left;">
+                                        <a class="tooltip-tip2 ajax-load tooltipster-disable" href="{{ path('badgesByCateg', { 'id': 3 }) }}" title="Badges Combat"><i class="entypo-combat"></i><span style="display: inline-block; float: none;">Combat</span></a>
+                                    </li>
+                                    <li style="text-align: left;">
+                                        <a class="tooltip-tip2 ajax-load tooltipster-disable" href="{{ path('badgesByCateg', { 'id': 4 }) }}" title="Badges Exploration"><i class="entypo-exploration"></i><span style="display: inline-block; float: none;">Exploration</span></a>
+                                    </li>
+                                    <li style="text-align: left;">
+                                        <a class="tooltip-tip2 ajax-load tooltipster-disable" href="{{ path('badgesByCateg', { 'id': 2 }) }}" title="Badges Panorama"><i class="entypo-panorama"></i><span style="display: inline-block; float: none;">Panorama</span></a>
+                                    </li>
+                                    <li style="text-align: left;">
+                                        <a class="tooltip-tip2 ajax-load tooltipster-disable" href="{{ path('badgesByCateg', { 'id': 1 }) }}" title="Badges aventure"><i class="entypo-aventure"></i><span style="display: inline-block; float: none;">Aventure</span></a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                        {%if app.request.session.get("idRole")==1%}
+                            <ul class="topnav menu-left-nest">
+                                <li>
+                                    <a href="#" style="border-left:0px solid!important;" class="title-menu-left">
+
+                                        <span>Administration</span>
+
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a class="tooltip-tip ajax-load" href="{{ path('accounts') }}" title="Gestion des comptes">
+                                        <i class="icon-view-list-large"></i>
+                                        <span>Gestion des comptes</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="tooltip-tip ajax-load" href="{{ path('newBadge') }}" title="Créer badge">
+                                        <i class="icon-plus"></i>
+                                        <span>Créer un nouveau badge</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="tooltip-tip ajax-load" href="{{ path('users') }}" title="Gestion des utilisateurs">
+                                        <i class="icon-user-group"></i>
+                                        <span>Gestion des utilisateurs</span>
+                                    </a>
+                                </li>
+
+                            </ul>
+                        {%endif%}
+
+
+
+
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- FIN HEADER -->
+
+        <!--  PAPER WRAP -->
+        <div class="wrap-fluid">
+            <div class="container-fluid paper-wrap bevel tlbr">
+
+                <!-- CONTENT -->
+                <!--TITLE -->
+                <div class="row">
+                    <div id="paper-top">
+                        <div class="col-sm-3">
+                            <h2 class="tittle-content-header">
+                                <i class="icon-media-record"></i> 
+                                <span> {% block title %}{% endblock %}
+                                </span>
+                            </h2>
+
+                        </div>
+                        <div class="pull-right" style="margin-right: 40px">
+                            <a href="javascript:history.go(-1)">
+                                <button class="btn btn-success">Retour en arrière</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!--/ TITLE -->
+
+
+                <div class="content-wrap">
+                    <div class="row">
+
+
+                        <div class="col-sm-12">
+                            <!-- BLANK PAGE-->
+
+                            <div class="nest" id="Blank_PageClose">
+                                <div class="body-nest" id="Blank_Page_Content">
+                                    <div id="content">{% block content %}{% endblock %}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END OF BLANK PAGE -->
+                    </div>
+
+
+
+                    <!-- /END OF CONTENT -->
+
+                    <!-- FOOTER -->
+                </div>
+            </div>
+        </div>
+        <!--  END OF PAPER WRAP -->
+
+
+        <script type="text/javascript" src="{{ app.request.basepath }}/assets/js/preloader.js"></script>
+        <script type="text/javascript" src="{{ app.request.basepath }}/assets/js/bootstrap.js"></script>
+        <script type="text/javascript" src="{{ app.request.basepath }}/assets/js/app.js"></script>
+        <script type="text/javascript" src="{{ app.request.basepath }}/assets/js/load.js"></script>
+        <script type="text/javascript" src="{{ app.request.basepath }}/assets/js/datatable/js/jquery.dataTables.js"></script>
+        <script type="text/javascript" src="{{ app.request.basepath }}/assets/js/datatable/js/dataTables.bootstrap.js"></script>
+        <script type="text/javascript" src="{{ app.request.basepath }}/assets/js/skin-select/skin-select.js"></script>
+        <script type="text/javascript" src="{{ app.request.basepath }}/assets/js/custom/scriptbreaker-multiple-accordion-1.js"></script>
+        <script>
+            $(document).ready(function () {
+                $(".topnav").accordionze({
+                    accordionze: true,
+                    speed: 500,
+                    closedSign: '<img src="{{ app.request.basepath }}/assets/img/plus.png">',
+                    openedSign: '<img src="{{ app.request.basepath }}/assets/img/minus.png">'
+                });
+            });
+        </script>
+
+    </body>
+
+</html>
+
